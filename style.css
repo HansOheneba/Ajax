@@ -1,0 +1,33 @@
+body {
+  background-color: gainsboro;
+  display: flex;
+}
+
+h1 {
+  text-align: center;
+}
+
+#area{
+    display: flex;
+}
+
+button{
+    height: fit-content;
+}
+#comments {
+  padding: 30px 10px;
+  background-color: white;
+  width: 30%;
+  margin: 20px auto;
+}
+
+li {
+  list-style: none;
+  margin: 40px 40px;
+}
+button {
+  background-color: rgb(4, 4, 37);
+  color: white;
+  padding: 20px;
+  margin: 10px 0;
+}
