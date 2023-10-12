@@ -2,8 +2,6 @@
 require_once 'db.php';
 
 $newCount = $_POST['newCount'];
-
-
 try {
 
     $query = "SELECT * FROM comments LIMIT $newCount ";
