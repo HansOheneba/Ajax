@@ -16,6 +16,7 @@ $(document).ready(function () {
             }
         });
     }
+
     function populateTable(data) {
         var table = $("#data-table");
 
@@ -53,6 +54,41 @@ $(document).ready(function () {
             deleteProduct(productId);
         });
     }
+    $("#addBtn").click(function () {
+        $("#form").toggleClass("hidden");
+    });
+    
+    $("#addForm").submit(function (e) {
+        e.preventDefault();
+    
+        var formData = {
+            name: $("#name").val(),
+            description: $("#description").val(),
+            price: $("#price").val()
+        };
+    
+        var jsonData = JSON.stringify(formData);
+    
+        $.ajax({
+            type: "POST",
+            url: apiUrl + "create",
+            data: jsonData,
+            dataType: "json",
+            contentType: "application/json",
+            success: function (response) {
+                console.log("API Response:", response);
+                read();
+                $("#form").addClass("hidden");
+                $("#addForm")[0].reset();
+            },
+            error: function (error) {
+                console.log("Error:", error);
+            }
+        });
+    });
+    
+
+
     function deleteProduct(productId) {
         $.ajax({
             type: "DELETE",
