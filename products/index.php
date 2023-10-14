@@ -42,8 +42,8 @@
     <br><br>
 
 
-    <div id="form" class="hidden">
-    <form id="addForm">
+    <div id="form">
+    <form id="addForm" class="hidden">
         <h3>Add a product</h3>
     <div>
         <label for="name">Product Name</label>
@@ -61,6 +61,29 @@
         <button type="submit" name="btn_add_product">Add Product</button>
     </div>
 </form>
+<div id="updateForm" class="hidden">
+    <h3>Update Product</h3>
+    <div>
+        <label for="updateId">ID</label>
+        <input type="text" name="updateId" id="updateId" disabled>
+    </div>
+    <div>
+        <label for="updateName">Product Name</label>
+        <input type="text" name="updateName" id="updateName" required>
+    </div>
+    <div>
+        <label for="updateDescription">Product Description</label>
+        <textarea name="updateDescription" id="updateDescription" rows="4" required></textarea>
+    </div>
+    <div>
+        <label for="updatePrice">Price</label>
+        <input type="number" name="updatePrice" id="updatePrice" step="0.01" required>
+    </div>
+    <div>
+        <button type="button" id="updateProductBtn">Update Product</button>
+    </div>
+</div>
+
     </div>
 
 </body>

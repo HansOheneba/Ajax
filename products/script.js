@@ -20,9 +20,7 @@ $(document).ready(function () {
     function populateTable(data) {
         var table = $("#data-table");
 
-
         table.find("tbody").empty();
-
 
         data.forEach(function (product) {
             var row = $("<tr>");
@@ -33,7 +31,6 @@ $(document).ready(function () {
             row.append("<td>" + product.dateCreated + "</td>");
             row.append("<td>" + product.dateModified + "</td>");
 
-
             var deleteButton = $("<button type='button'>Delete</button>");
 
             deleteButton.on("click", function () {
@@ -41,34 +38,45 @@ $(document).ready(function () {
                 deleteProduct(productId);
             });
 
-            row.append(
-                '<td>' +
-                '<a href="' + apiUrl + 'update?id=' + product.id + '"><button type="button" id="updateBtn">Update</button></a>'
-            );
+            var updateButton = $("<button type='button'>Update</button>");
+            updateButton.on("click", function () {
+               
+                var productId = product.id;
+                populateUpdateForm(product);
+                if (!$("#addForm").hasClass("hidden")) {
+                    $("#addForm").addClass("hidden");
+                }
+            });
 
-            row.append(deleteButton);
+            row.append(updateButton);
+            row.append(deleteButton); 
             table.find("tbody").append(row);
+            
         });
         $("#deleteBtn").on("click", function () {
             var productId = $(this).data("id");
             deleteProduct(productId);
         });
     }
+
     $("#addBtn").click(function () {
-        $("#form").toggleClass("hidden");
+        $("#addForm").toggleClass("hidden");
+        if (!$("#updateForm").hasClass("hidden")) {
+            $("#updateForm").addClass("hidden");
+        }
     });
-    
+
     $("#addForm").submit(function (e) {
         e.preventDefault();
-    
+
         var formData = {
             name: $("#name").val(),
             description: $("#description").val(),
             price: $("#price").val()
         };
-    
+
         var jsonData = JSON.stringify(formData);
-    
+
         $.ajax({
             type: "POST",
             url: apiUrl + "create",
@@ -78,16 +86,53 @@ $(document).ready(function () {
             success: function (response) {
                 console.log("API Response:", response);
                 read();
-                $("#form").addClass("hidden");
                 $("#addForm")[0].reset();
+                $("#addForm").addClass("hidden");
             },
             error: function (error) {
                 console.log("Error:", error);
             }
         });
     });
-    
 
+    // Function to populate the update form with product data
+    function populateUpdateForm(product) {
+        $("#updateId").val(product.id);
+        $("#updateName").val(product.name);
+        $("#updateDescription").val(product.description);
+        $("#updatePrice").val(product.price);
+
+        // Show the update form
+        $("#updateForm").removeClass("hidden");
+    }
+
+    // Add a click event for the "Update Product" button in the update form
+    $("#updateProductBtn").click(function () {
+        var productId = $("#updateId").val();
+        var updatedData = {
+            name: $("#updateName").val(),
+            description: $("#updateDescription").val(),
+            price: $("#updatePrice").val()
+        };
+
+        var jsonData = JSON.stringify(updatedData);
+
+        $.ajax({
+            type: "PUT",
+            url: apiUrl + "update?id=" + productId,
+            data: jsonData,
+            dataType: "json",
+            contentType: "application/json",
+            success: function (response) {
+                console.log("API Response:", response);
+                read();
+                $("#updateForm").addClass("hidden");
+            },
+            error: function (error) {
+                console.log("Error:", error);
+            }
+        });
+    });
 
     function deleteProduct(productId) {
         $.ajax({
@@ -101,5 +146,6 @@ $(document).ready(function () {
             }
         });
     }
+
     read();
 });
