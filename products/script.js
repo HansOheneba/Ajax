@@ -24,16 +24,16 @@ $(document).ready(function () {
 
 
         data.forEach(function (product) {
-            var row = $("<tr class='border-b dark:border-neutral-500'>");
-            row.append("<td class='whitespace-nowrap px-6 py-4 font-medium'>" + product.id + "</td>");
-            row.append("<td class='whitespace-nowrap px-6 py-4'>" + product.name + "</td>");
-            row.append("<td class='whitespace-nowrap px-6 py-4'>" + product.description + "</td>");
-            row.append("<td class='whitespace-nowrap px-6 py-4'>" + product.price + "</td>");
-            row.append("<td class='whitespace-nowrap px-6 py-4'>" + product.dateCreated + "</td>");
-            row.append("<td class='whitespace-nowrap px-6 py-4'>" + product.dateModified + "</td>");
+            var row = $("<tr>");
+            row.append("<td>" + product.id + "</td>");
+            row.append("<td>" + product.name + "</td>");
+            row.append("<td>" + product.description + "</td>");
+            row.append("<td>" + product.price + "</td>");
+            row.append("<td>" + product.dateCreated + "</td>");
+            row.append("<td>" + product.dateModified + "</td>");
 
 
-            var deleteButton = $("<button type='button' class='focus:outline-none text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-red-600 dark:hover-bg-red-700 dark:focus:ring-red-900'>Delete</button>");
+            var deleteButton = $("<button type='button'>Delete</button>");
 
             deleteButton.on("click", function () {
                 var productId = product.id;
@@ -42,7 +42,7 @@ $(document).ready(function () {
 
             row.append(
                 '<td>' +
-                '<a href="' + apiUrl + 'update?id=' + product.id + '"><button type="button" id="updateBtn" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:focus:ring-yellow-900">Update</button></a>'
+                '<a href="' + apiUrl + 'update?id=' + product.id + '"><button type="button" id="updateBtn">Update</button></a>'
             );
 
             row.append(deleteButton);
