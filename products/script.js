@@ -31,28 +31,30 @@ $(document).ready(function () {
             row.append("<td>" + product.dateCreated + "</td>");
             row.append("<td>" + product.dateModified + "</td>");
 
-            var deleteButton = $("<button type='button'>Delete</button>");
 
+
+            var deleteButton = $("<button type='button' class='delete-button'>Delete</button>");
             deleteButton.on("click", function () {
                 var productId = product.id;
                 deleteProduct(productId);
             });
 
-            var updateButton = $("<button type='button'>Update</button>");
+            var updateButton = $("<button type='button' class='update-button'>Update</button>");
             updateButton.on("click", function () {
-               
                 var productId = product.id;
                 populateUpdateForm(product);
+
+                
                 if (!$("#addForm").hasClass("hidden")) {
                     $("#addForm").addClass("hidden");
                 }
             });
 
             row.append(updateButton);
-            row.append(deleteButton); 
+            row.append(deleteButton);
             table.find("tbody").append(row);
-            
         });
+
         $("#deleteBtn").on("click", function () {
             var productId = $(this).data("id");
             deleteProduct(productId);
@@ -95,18 +97,18 @@ $(document).ready(function () {
         });
     });
 
-    // Function to populate the update form with product data
+
     function populateUpdateForm(product) {
         $("#updateId").val(product.id);
         $("#updateName").val(product.name);
         $("#updateDescription").val(product.description);
         $("#updatePrice").val(product.price);
 
-        // Show the update form
+
         $("#updateForm").removeClass("hidden");
     }
 
-    // Add a click event for the "Update Product" button in the update form
+
     $("#updateProductBtn").click(function () {
         var productId = $("#updateId").val();
         var updatedData = {
