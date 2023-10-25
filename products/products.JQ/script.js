@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var apiUrl = "http://localhost/APIs/API%20Test/ajax/product/";
+    var apiUrl = "http://localhost/APIs/API%20Test/ajax/v2/product/";
 
     function read() {
         $.ajax({
